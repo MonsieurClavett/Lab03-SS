@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
-
+//
 namespace GestionBanque.Models
 {
     public class Client : INotifyPropertyChanged

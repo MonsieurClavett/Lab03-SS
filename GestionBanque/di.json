@@ -1,0 +1,35 @@
+{
+  "defaultAssembly": "GestionBanque",
+  "components": [
+    {
+      "type": "GestionBanque.Models.DataService.ClientSqliteDataService, GestionBanque",
+      "services": [
+        { "type": "GestionBanque.Models.DataService.IDataService`1[[GestionBanque.Models.Client, GestionBanque]], GestionBanque" }
+      ],
+      "parameters": {
+        "nomBd": "banque.bd"
+      }
+    },
+    {
+      "type": "GestionBanque.Models.DataService.CompteSqliteDataService, GestionBanque",
+      "services": [
+        { "type": "GestionBanque.Models.DataService.IDataService`1[[GestionBanque.Models.Compte, GestionBanque]], GestionBanque" }
+      ],
+      "parameters": {
+        "nomBd": "banque.bd"
+      }
+    },
+    {
+      "type": "GestionBanque.Views.InteractionUtilisateurGui, GestionBanque",
+      "services": [
+        { "type": "GestionBanque.ViewModels.Interfaces.IInteractionUtilisateur, GestionBanque" }
+      ]
+    },
+    {
+      "type": "GestionBanque.ViewModels.BanqueViewModel, GestionBanque"
+    },
+    {
+      "type": "GestionBanque.ViewModels.MainViewModel, GestionBanque"
+    }
+  ]
+}

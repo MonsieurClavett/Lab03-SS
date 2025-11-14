@@ -1,0 +1,28 @@
+﻿<Window x:Class="GestionBanque.Views.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GestionBanque.Views"
+        xmlns:viewmodels="clr-namespace:GestionBanque.ViewModels"
+        mc:Ignorable="d"
+        Title="Gestion Banque" 
+        Height="450" Width="825"
+        ResizeMode="CanMinimize">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewmodels:BanqueViewModel}">
+            <local:BanqueView/>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!--<RowDefinition Height="*"/>-->
+        </Grid.RowDefinitions>
+
+        <!--<Menu Width="{Binding ElementName=win, Path=Width}"></Menu>-->
+
+        <ContentControl Grid.Row="0" Content="{Binding ViewModelActuel}" Margin="0, 0, 0, 0" />
+    </Grid>
+</Window>

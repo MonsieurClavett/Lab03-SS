@@ -1,0 +1,118 @@
+﻿<UserControl x:Class="GestionBanque.Views.BanqueView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GestionBanque.Views"
+             mc:Ignorable="d" 
+             Height="450" Width="800">
+    <UserControl.Resources>
+        <Style x:Key="allMargins">
+            <Setter Property="Control.Margin" Value="3" />
+        </Style>
+        <Style TargetType="TextBlock" BasedOn="{StaticResource allMargins}"/>
+        <Style TargetType="TextBox" BasedOn="{StaticResource allMargins}">
+            <Setter Property="MinWidth" Value="75" />
+        </Style>
+        <Style TargetType="ListView" BasedOn="{StaticResource allMargins}"/>
+        <Style TargetType="Button" BasedOn="{StaticResource allMargins}"/>
+        <Style x:Key="gridViewHeaderStyle" TargetType="{x:Type GridViewColumnHeader}">
+            <Setter Property="Visibility" Value="Collapsed" />
+        </Style>
+    </UserControl.Resources>
+    <DockPanel>
+        <ToolBar DockPanel.Dock="Top"></ToolBar>
+
+        <ListView ItemsSource="{Binding Clients}" 
+              SelectedItem="{Binding ClientSelectionne}"
+              MinWidth="120">
+            <ListView.View>
+                <GridView ColumnHeaderContainerStyle="{StaticResource gridViewHeaderStyle}">
+                    <GridViewColumn Width="50" Header="Prénom" DisplayMemberBinding="{Binding Prenom, Mode=OneWay}"/>
+                    <GridViewColumn Width="60" Header="Nom" DisplayMemberBinding="{Binding Nom, Mode=OneWay}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Grid Grid.Column="1" Background="White">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Prénom : "/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Nom de famile : "/>
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="Courriel : "/>
+            <TextBlock Grid.Row="3" Grid.Column="0" Text="Info bancaire : "/>
+
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Prenom}"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Nom}"/>
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Courriel}"/>
+            <Button Grid.Row="3" Grid.Column="1" Content="Modifier" Width="75" HorizontalAlignment="Right" Command="{Binding ModifierCommand}"/>
+
+            <ListView Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
+                  ItemsSource="{Binding ClientSelectionne.Comptes}"
+                  SelectedItem="{Binding CompteSelectionne}"
+                  MinHeight="60"
+                  >
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Width="100" Header="No compte" DisplayMemberBinding="{Binding NoCompte, StringFormat=#{0}, Mode=OneWay}"/>
+                        <GridViewColumn Width="100" Header="Balance" DisplayMemberBinding="{Binding Balance, StringFormat=C2, Mode=OneWay}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+            <StackPanel Grid.Row="5" Grid.ColumnSpan="2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Numéro de compte : "/>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Balance : "/>
+
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding CompteSelectionne.NoCompte, StringFormat=#{0}}"/>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding CompteSelectionne.Balance, StringFormat=C2}"/>
+
+                    <GroupBox Grid.Row="2" Grid.Column="1" Header="Transaction" 
+                          Style="{StaticResource allMargins}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Montant : "/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Action : "/>
+
+                            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding MontantTransaction}"/>
+                            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+                                <Button Content="Déposer" Command="{Binding DeposerCommand}"/>
+                                <Button Content="Retirer" Command="{Binding RetirerCommand}"/>
+                            </StackPanel>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </StackPanel>
+        </Grid>
+    </DockPanel>
+</UserControl>
